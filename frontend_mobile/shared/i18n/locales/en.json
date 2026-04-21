@@ -1,0 +1,13 @@
+{
+  "login": {
+    "workEmail": "Work Email",
+    "password": "Password",
+    "forgot": "Forgot?",
+    "accessConsole": "Access Console",
+    "secureAuth": "Secure enterprise authentication",
+    "emailRequired": "Email is required",
+    "validEmail": "Valid email required",
+    "passwordRequired": "Password is required",
+    "passwordMin": "Min 6 characters"
+  }
+}

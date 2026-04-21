@@ -14,28 +14,29 @@ interface ButtonProps extends TouchableOpacityProps {
   variant?: 'primary' | 'secondary' | 'outline' | 'danger';
   icon?: React.ReactNode;
   iconPosition?: 'left' | 'right';
+  className?: string;
 }
 
 const variantStyles = {
   primary: {
-    backgroundColor: solarTheme.colors.primaryStrong,
-    borderColor: solarTheme.colors.primaryStrong,
-    textColor: solarTheme.colors.white,
+    bg: 'bg-primaryStrong',
+    border: 'border-primaryStrong',
+    text: solarTheme.colors.white,
   },
   secondary: {
-    backgroundColor: solarTheme.colors.surface,
-    borderColor: solarTheme.colors.borderStrong,
-    textColor: solarTheme.colors.primaryStrong,
+    bg: 'bg-surface',
+    border: 'border-borderStrong',
+    text: solarTheme.colors.primaryStrong,
   },
   outline: {
-    backgroundColor: 'transparent',
-    borderColor: solarTheme.colors.borderStrong,
-    textColor: solarTheme.colors.primaryStrong,
+    bg: 'bg-transparent',
+    border: 'border-borderStrong',
+    text: solarTheme.colors.primaryStrong,
   },
   danger: {
-    backgroundColor: solarTheme.colors.danger,
-    borderColor: solarTheme.colors.danger,
-    textColor: solarTheme.colors.white,
+    bg: 'bg-danger',
+    border: 'border-danger',
+    text: solarTheme.colors.white,
   },
 };
 
@@ -47,6 +48,7 @@ export function Button({
   style,
   icon,
   iconPosition = 'left',
+  className = '',
   ...props
 }: ButtonProps) {
   const styles = variantStyles[variant];
@@ -56,15 +58,10 @@ export function Button({
       {...props}
       disabled={disabled || loading}
       activeOpacity={0.88}
-      className="flex-row items-center justify-center px-6 py-3.5 rounded-[18px]"
+      className={`flex-row items-center justify-center px-6 py-3.5 rounded-[18px] border min-h-[52px] ${styles.bg} ${styles.border} ${
+        disabled || loading ? 'opacity-60' : ''
+      } ${className}`}
       style={[
-        {
-          backgroundColor: styles.backgroundColor,
-          borderWidth: 1,
-          borderColor: styles.borderColor,
-          minHeight: 52,
-          opacity: disabled || loading ? 0.6 : 1,
-        },
         variant === 'primary' ? solarShadows.soft : null,
         style,
       ]}
@@ -72,21 +69,18 @@ export function Button({
       {loading ? (
         <ActivityIndicator
           size="small"
-          color={styles.textColor}
+          color={styles.text}
           style={{ marginRight: 10 }}
         />
       ) : null}
-      {!loading && icon && iconPosition === 'left' ? <View style={{ marginRight: 10 }}>{icon}</View> : null}
+      {!loading && icon && iconPosition === 'left' ? <View className="mr-2.5">{icon}</View> : null}
       <Text
-        style={{
-          color: styles.textColor,
-          fontSize: 16,
-          fontWeight: '700',
-        }}
+        style={{ color: styles.text }}
+        className="text-base font-bold"
       >
         {title}
       </Text>
-      {!loading && icon && iconPosition === 'right' ? <View style={{ marginLeft: 10 }}>{icon}</View> : null}
+      {!loading && icon && iconPosition === 'right' ? <View className="ml-2.5">{icon}</View> : null}
     </TouchableOpacity>
   );
 }

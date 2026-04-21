@@ -6,94 +6,49 @@ import { useDashboardStats } from '../../features/dashboard/useDashboard';
 import { useAuthStore } from '../../features/auth/authStore';
 import { LoadingSpinner } from '../../shared/ui/LoadingSpinner';
 import { AppTopBar } from '../../shared/ui/AppTopBar';
-import { Button } from '../../shared/ui/Button';
 import { EmptyState } from '../../shared/ui/EmptyState';
 import { SectionHeader } from '../../shared/ui/SectionHeader';
 import { StatusPill } from '../../shared/ui/StatusPill';
 import { SurfaceCard } from '../../shared/ui/SurfaceCard';
-import { Feather, MaterialIcons } from '../../shared/ui/icons';
+import { MaterialIcons } from '../../shared/ui/icons';
 import { formatCurrency, formatShortDate } from '../../shared/utils/format';
 import { getLeadStatusLabel, type LeadStatus } from '../../shared/constants/leadStatus';
 import { getInitials, solarTheme } from '../../shared/theme';
-
-function HeaderActionButton({
-  icon,
-  onPress,
-}: {
-  icon: React.ComponentProps<typeof Feather>['name'];
-  onPress: () => void;
-}) {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      className="w-10 h-10 items-center justify-center rounded-full"
-      style={{
-        backgroundColor: solarTheme.colors.surface,
-        borderWidth: 1,
-        borderColor: solarTheme.colors.border,
-      }}
-    >
-      <Feather name={icon} size={17} color={solarTheme.colors.primaryStrong} />
-    </TouchableOpacity>
-  );
-}
-
-function StatCard({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ComponentProps<typeof MaterialIcons>['name'];
-  label: string;
-  value: string | number;
-}) {
-  return (
-    <SurfaceCard className="flex-1" style={{ padding: 16 }}>
-      <View
-        className="w-9 h-9 rounded-2xl items-center justify-center mb-4"
-        style={{ backgroundColor: solarTheme.colors.surfaceMuted }}
-      >
-        <MaterialIcons name={icon} size={18} color={solarTheme.colors.primaryStrong} />
-      </View>
-      <Text style={{ color: solarTheme.colors.textMuted, fontSize: 13, marginBottom: 6 }}>
-        {label}
-      </Text>
-      <Text style={{ color: solarTheme.colors.text, fontSize: 18, fontWeight: '800' }}>{value}</Text>
-    </SurfaceCard>
-  );
-}
+import { HeaderActionButton } from '../../shared/ui/HeaderActionButton';
+import { StatCard } from '../../shared/ui/StatCard';
+import { SkeletonBlock } from '../../shared/ui/SkeletonBlock';
 
 function DashboardSkeleton() {
   return (
     <View className="px-5 pt-2">
       <View className="flex-row gap-3 mb-3">
-        <SurfaceCard className="flex-1" style={{ padding: 16 }}>
-          <View className="w-9 h-9 rounded-2xl mb-4" style={{ backgroundColor: '#f1e6df' }} />
-          <View className="h-3 rounded-full mb-3" style={{ width: 76, backgroundColor: '#efe4dd' }} />
-          <View className="h-6 rounded-full" style={{ width: 52, backgroundColor: '#e8d9cf' }} />
+        <SurfaceCard className="flex-1 p-4">
+          <SkeletonBlock className="w-9 h-9 mb-4" />
+          <SkeletonBlock className="h-3 w-[76px] mb-3" />
+          <SkeletonBlock className="h-6 w-[52px]" />
         </SurfaceCard>
-        <SurfaceCard className="flex-1" style={{ padding: 16 }}>
-          <View className="w-9 h-9 rounded-2xl mb-4" style={{ backgroundColor: '#f1e6df' }} />
-          <View className="h-3 rounded-full mb-3" style={{ width: 76, backgroundColor: '#efe4dd' }} />
-          <View className="h-6 rounded-full" style={{ width: 52, backgroundColor: '#e8d9cf' }} />
+        <SurfaceCard className="flex-1 p-4">
+          <SkeletonBlock className="w-9 h-9 mb-4" />
+          <SkeletonBlock className="h-3 w-[76px] mb-3" />
+          <SkeletonBlock className="h-6 w-[52px]" />
         </SurfaceCard>
       </View>
-      <SurfaceCard style={{ padding: 20, marginBottom: 22 }}>
-        <View className="h-3 rounded-full mb-4" style={{ width: 110, backgroundColor: '#efe4dd' }} />
-        <View className="h-8 rounded-full" style={{ width: 150, backgroundColor: '#e8d9cf' }} />
+      <SurfaceCard className="p-5 mb-6">
+        <SkeletonBlock className="h-3 w-[110px] mb-4" />
+        <SkeletonBlock className="h-8 w-[150px]" />
       </SurfaceCard>
-      <SurfaceCard style={{ padding: 18 }}>
-        <View className="h-4 rounded-full mb-5" style={{ width: 130, backgroundColor: '#efe4dd' }} />
+      <SurfaceCard className="p-4">
+        <SkeletonBlock className="h-4 w-[130px] mb-5" />
         {[1, 2, 3].map((item) => (
           <View key={item} className="flex-row items-center justify-between mb-4">
             <View className="flex-row items-center">
-              <View className="w-10 h-10 rounded-full mr-3" style={{ backgroundColor: '#f1e6df' }} />
+              <SkeletonBlock className="w-10 h-10 mr-3" />
               <View>
-                <View className="h-3 rounded-full mb-2" style={{ width: 110, backgroundColor: '#efe4dd' }} />
-                <View className="h-3 rounded-full" style={{ width: 70, backgroundColor: '#f1e6df' }} />
+                <SkeletonBlock className="h-3 w-[110px] mb-2" />
+                <SkeletonBlock className="h-3 w-[70px]" />
               </View>
             </View>
-            <View className="h-7 rounded-full" style={{ width: 64, backgroundColor: '#efe4dd' }} />
+            <SkeletonBlock className="h-7 w-[64px]" />
           </View>
         ))}
       </SurfaceCard>
@@ -115,7 +70,7 @@ export default function DashboardScreen() {
   const winRate = stats?.totalLeads ? Math.round((stats.wonDeals / stats.totalLeads) * 100) : 0;
 
   return (
-    <SafeAreaView className="flex-1" style={{ backgroundColor: solarTheme.colors.background }}>
+    <SafeAreaView className="flex-1 bg-background">
       <ScrollView
         className="flex-1"
         contentContainerStyle={{ paddingBottom: 118 }}
@@ -135,15 +90,7 @@ export default function DashboardScreen() {
             <View className="items-end">
               <HeaderActionButton icon="bell" onPress={() => undefined} />
               <TouchableOpacity onPress={handleLogout} className="mt-2">
-                <Text
-                  style={{
-                    color: solarTheme.colors.primary,
-                    fontSize: 13,
-                    fontWeight: '700',
-                  }}
-                >
-                  Sign out
-                </Text>
+                <Text className="text-primary text-[13px] font-bold">Sign out</Text>
               </TouchableOpacity>
             </View>
           }
@@ -169,27 +116,16 @@ export default function DashboardScreen() {
               <StatCard icon="emoji-events" label="Won Deals" value={stats.wonDeals} />
             </View>
 
-            <SurfaceCard style={{ padding: 20, marginBottom: 24 }}>
+            <SurfaceCard className="p-5 mb-6">
               <View className="flex-row items-start justify-between mb-4">
-                <View
-                  className="w-10 h-10 rounded-2xl items-center justify-center"
-                  style={{ backgroundColor: solarTheme.colors.surfaceMuted }}
-                >
+                <View className="w-10 h-10 rounded-2xl items-center justify-center bg-surfaceMuted">
                   <MaterialIcons name="currency-rupee" size={20} color={solarTheme.colors.primaryStrong} />
                 </View>
                 <StatusPill label={`${winRate}% won`} tone="success" />
               </View>
 
-              <Text style={{ color: solarTheme.colors.textMuted, fontSize: 14, marginBottom: 6 }}>
-                Revenue (This Month)
-              </Text>
-              <Text
-                style={{
-                  color: solarTheme.colors.text,
-                  fontSize: 22,
-                  fontWeight: '900',
-                }}
-              >
+              <Text className="text-textMuted text-sm mb-1.5">Revenue (This Month)</Text>
+              <Text className="text-text text-[22px] font-black">
                 {formatCurrency(stats.totalRevenue)}
               </Text>
             </SurfaceCard>
@@ -216,39 +152,16 @@ export default function DashboardScreen() {
                       activeOpacity={0.88}
                       onPress={() => router.push(`/(tabs)/lead/${lead._id}`)}
                     >
-                      <SurfaceCard className="flex-row items-center justify-between" style={{ padding: 14 }}>
+                      <SurfaceCard className="flex-row items-center justify-between p-3.5">
                         <View className="flex-row items-center flex-1 pr-3">
-                          <View
-                            className="w-11 h-11 rounded-full items-center justify-center mr-3"
-                            style={{ backgroundColor: solarTheme.colors.surfaceMuted }}
-                          >
-                            <Text
-                              style={{
-                                color: solarTheme.colors.primaryStrong,
-                                fontSize: 14,
-                                fontWeight: '800',
-                              }}
-                            >
+                          <View className="w-11 h-11 rounded-full items-center justify-center mr-3 bg-surfaceMuted">
+                            <Text className="text-primaryStrong text-sm font-extrabold">
                               {getInitials(lead.name)}
                             </Text>
                           </View>
                           <View className="flex-1">
-                            <Text
-                              style={{
-                                color: solarTheme.colors.text,
-                                fontSize: 16,
-                                fontWeight: '700',
-                              }}
-                            >
-                              {lead.name}
-                            </Text>
-                            <Text
-                              style={{
-                                color: solarTheme.colors.textMuted,
-                                fontSize: 13,
-                                marginTop: 4,
-                              }}
-                            >
+                            <Text className="text-text text-base font-bold">{lead.name}</Text>
+                            <Text className="text-textMuted text-[13px] mt-1">
                               Added {formatShortDate(lead.createdAt)}
                             </Text>
                           </View>
@@ -266,23 +179,18 @@ export default function DashboardScreen() {
                 {Object.keys(stats.statusBreakdown ?? {}).length > 0 ? (
                   <>
                     <SectionHeader title="Pipeline Snapshot" />
-                    <SurfaceCard style={{ padding: 18, marginTop: 16 }}>
+                    <SurfaceCard className="p-4 mt-4">
                       {Object.entries(stats.statusBreakdown).map(([status, count], index, array) => (
                         <View
                           key={status}
-                          className="flex-row items-center justify-between"
-                          style={{
-                            paddingVertical: 10,
-                            borderBottomWidth: index < array.length - 1 ? 1 : 0,
-                            borderBottomColor: '#f1e5dc',
-                          }}
+                          className={`flex-row items-center justify-between py-2.5 ${
+                            index < array.length - 1 ? 'border-b border-border' : ''
+                          }`}
                         >
-                          <Text style={{ color: solarTheme.colors.textMuted, fontSize: 14 }}>
+                          <Text className="text-textMuted text-sm">
                             {getLeadStatusLabel(status as LeadStatus)}
                           </Text>
-                          <Text style={{ color: solarTheme.colors.text, fontSize: 16, fontWeight: '700' }}>
-                            {count}
-                          </Text>
+                          <Text className="text-text text-base font-bold">{count}</Text>
                         </View>
                       ))}
                     </SurfaceCard>

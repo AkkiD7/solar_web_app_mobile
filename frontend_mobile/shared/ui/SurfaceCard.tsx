@@ -1,28 +1,24 @@
 import React from 'react';
 import { View, type ViewProps, type ViewStyle } from 'react-native';
-import { solarShadows, solarTheme } from '../theme';
+import { solarShadows } from '../theme';
 
 interface SurfaceCardProps extends ViewProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   style?: ViewStyle | ViewStyle[];
+  className?: string;
   tone?: 'default' | 'muted' | 'accent';
   shadow?: 'card' | 'soft' | 'floating' | 'none';
 }
 
 const toneStyles = {
-  default: {
-    backgroundColor: solarTheme.colors.surface,
-  },
-  muted: {
-    backgroundColor: solarTheme.colors.surfaceMuted,
-  },
-  accent: {
-    backgroundColor: solarTheme.colors.primarySoft,
-  },
+  default: 'bg-surface',
+  muted: 'bg-surfaceMuted',
+  accent: 'bg-primarySoft',
 } as const;
 
 export function SurfaceCard({
   children,
+  className = '',
   style,
   tone = 'default',
   shadow = 'card',
@@ -31,13 +27,8 @@ export function SurfaceCard({
   return (
     <View
       {...props}
+      className={`rounded-xl border border-border ${toneStyles[tone]} ${className}`}
       style={[
-        {
-          borderRadius: solarTheme.radius.xl,
-          borderWidth: 1,
-          borderColor: solarTheme.colors.border,
-        },
-        toneStyles[tone],
         shadow === 'none' ? null : solarShadows[shadow],
         style,
       ]}

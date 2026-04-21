@@ -13,16 +13,9 @@ const app = express();
 
 app.use(requestLogger);
 
-// CORS — allow Vite dev server
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174'];
+// CORS — allow all for testing
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true
 }));
 app.use(express.json());

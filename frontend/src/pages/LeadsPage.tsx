@@ -18,11 +18,11 @@ export default function LeadsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Leads</h1>
-          <p className="text-slate-500 text-sm mt-1">
+          <h1 className="text-3xl font-black text-text tracking-tight">Leads</h1>
+          <p className="text-textSoft font-medium mt-1">
             {leads.length} {leads.length === 1 ? 'lead' : 'leads'} total
           </p>
         </div>

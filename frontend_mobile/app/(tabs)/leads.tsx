@@ -21,47 +21,16 @@ import { EmptyState } from '../../shared/ui/EmptyState';
 import { SearchField } from '../../shared/ui/SearchField';
 import { StatusPill } from '../../shared/ui/StatusPill';
 import { SurfaceCard } from '../../shared/ui/SurfaceCard';
-import { Button } from '../../shared/ui/Button';
 import { ScreenHeader } from '../../shared/ui/ScreenHeader';
 import { Feather, MaterialIcons } from '../../shared/ui/icons';
 import { formatFollowUpLabel } from '../../shared/utils/format';
 import { LEAD_STATUS_OPTIONS, getLeadStatusLabel } from '../../shared/constants/leadStatus';
-import { getInitials, solarTheme } from '../../shared/theme';
+import { solarTheme } from '../../shared/theme';
+import { FilterChip } from '../../shared/ui/FilterChip';
+import { HeaderActionButton } from '../../shared/ui/HeaderActionButton';
+import { SkeletonBlock } from '../../shared/ui/SkeletonBlock';
 
 type LeadFilter = 'ALL' | LeadStatus;
-
-function FilterChip({
-  label,
-  active,
-  onPress,
-}: {
-  label: string;
-  active: boolean;
-  onPress: () => void;
-}) {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      className="px-4 py-2.5 rounded-full mr-2"
-      style={{
-        backgroundColor: active ? solarTheme.colors.primaryStrong : solarTheme.colors.surfaceMuted,
-        borderWidth: 1,
-        borderColor: active ? solarTheme.colors.primaryStrong : solarTheme.colors.border,
-      }}
-    >
-      <Text
-        style={{
-          color: active ? solarTheme.colors.white : solarTheme.colors.text,
-          fontSize: 12,
-          fontWeight: '700',
-          textTransform: 'uppercase',
-        }}
-      >
-        {label}
-      </Text>
-    </TouchableOpacity>
-  );
-}
 
 function LeadCard({ lead }: { lead: Lead }) {
   return (
@@ -69,43 +38,20 @@ function LeadCard({ lead }: { lead: Lead }) {
       onPress={() => router.push(`/(tabs)/lead/${lead._id}`)}
       activeOpacity={0.88}
     >
-      <SurfaceCard className="overflow-hidden" style={{ padding: 0 }}>
-        <View
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            bottom: 0,
-            width: 4,
-            backgroundColor: solarTheme.colors.primary,
-          }}
-        />
+      <SurfaceCard className="overflow-hidden p-0">
+        <View className="absolute left-0 top-0 bottom-0 w-1 bg-primary" />
 
-        <View style={{ padding: 18, paddingLeft: 18 }}>
+        <View className="p-[18px]">
           <View className="flex-row items-start justify-between mb-4">
             <View className="flex-1 pr-3">
-              <Text
-                style={{
-                  color: solarTheme.colors.text,
-                  fontSize: 16,
-                  fontWeight: '800',
-                }}
-              >
-                {lead.name}
-              </Text>
+              <Text className="text-text text-base font-extrabold">{lead.name}</Text>
               <View className="flex-row items-center mt-1">
                 <MaterialIcons
                   name="business"
                   size={15}
                   color={solarTheme.colors.textSoft}
                 />
-                <Text
-                  style={{
-                    color: solarTheme.colors.textMuted,
-                    fontSize: 13,
-                    marginLeft: 6,
-                  }}
-                >
+                <Text className="text-textMuted text-[13px] ml-1.5">
                   {lead.location || lead.email || 'Solar opportunity'}
                 </Text>
               </View>
@@ -113,49 +59,24 @@ function LeadCard({ lead }: { lead: Lead }) {
             <StatusPill label={getLeadStatusLabel(lead.status)} status={lead.status} compact />
           </View>
 
-          <View
-            className="flex-row items-center justify-between"
-            style={{ borderTopWidth: 1, borderTopColor: '#f1e5dc', paddingTop: 14 }}
-          >
+          <View className="flex-row items-center justify-between border-t border-border pt-3.5">
             <View className="flex-row items-center flex-1 pr-2">
               <Feather name="phone" size={15} color={solarTheme.colors.primaryStrong} />
-              <Text
-                style={{
-                  color: solarTheme.colors.textMuted,
-                  fontSize: 13,
-                  marginLeft: 8,
-                  flexShrink: 1,
-                }}
-              >
+              <Text className="text-textMuted text-[13px] ml-2 flex-shrink">
                 {lead.phone}
               </Text>
             </View>
 
-            <View
-              className="flex-row items-center rounded-xl px-3 py-2"
-              style={{ backgroundColor: solarTheme.colors.surfaceMuted }}
-            >
+            <View className="flex-row items-center rounded-xl px-3 py-2 bg-surfaceMuted">
               <Feather name="calendar" size={14} color={solarTheme.colors.textMuted} />
-              <Text
-                style={{
-                  color: solarTheme.colors.textMuted,
-                  fontSize: 12,
-                  marginLeft: 8,
-                }}
-              >
+              <Text className="text-textMuted text-xs ml-2">
                 Follow up: {formatFollowUpLabel(lead.followUpDate ?? lead.createdAt)}
               </Text>
             </View>
           </View>
 
           {lead.systemSizeKW != null ? (
-            <Text
-              style={{
-                color: solarTheme.colors.textSoft,
-                fontSize: 12,
-                marginTop: 12,
-              }}
-            >
+            <Text className="text-textSoft text-xs mt-3">
               System size: {lead.systemSizeKW} kW
             </Text>
           ) : null}
@@ -167,12 +88,12 @@ function LeadCard({ lead }: { lead: Lead }) {
 
 function LeadSkeleton() {
   return (
-    <SurfaceCard style={{ padding: 18 }}>
-      <View className="h-5 rounded-full mb-3" style={{ width: 140, backgroundColor: '#efe4dd' }} />
-      <View className="h-4 rounded-full mb-5" style={{ width: 170, backgroundColor: '#f4ebe5' }} />
+    <SurfaceCard className="p-4">
+      <SkeletonBlock className="h-5 w-[140px] mb-3" />
+      <SkeletonBlock className="h-4 w-[170px] mb-5" />
       <View className="flex-row items-center justify-between">
-        <View className="h-4 rounded-full" style={{ width: 110, backgroundColor: '#f4ebe5' }} />
-        <View className="h-8 rounded-full" style={{ width: 110, backgroundColor: '#efe4dd' }} />
+        <SkeletonBlock className="h-4 w-[110px]" />
+        <SkeletonBlock className="h-8 w-[110px]" />
       </View>
     </SurfaceCard>
   );
@@ -218,50 +139,22 @@ export default function LeadsScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1" style={{ backgroundColor: solarTheme.colors.background }}>
+    <SafeAreaView className="flex-1 bg-background">
       <FlatList
         data={isLoading ? [] : filteredLeads}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => <LeadCard lead={item} />}
-        ItemSeparatorComponent={() => <View style={{ height: 14 }} />}
+        ItemSeparatorComponent={() => <View className="h-3.5" />}
         contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 126 }}
         ListHeaderComponent={
           <View>
-            <AppTopBar
-              trailing={
-                <TouchableOpacity
-                  onPress={() => undefined}
-                  className="w-10 h-10 items-center justify-center rounded-full"
-                  style={{
-                    backgroundColor: solarTheme.colors.surface,
-                    borderWidth: 1,
-                    borderColor: solarTheme.colors.border,
-                  }}
-                >
-                  <Feather name="bell" size={17} color={solarTheme.colors.primaryStrong} />
-                </TouchableOpacity>
-              }
-            />
+            <AppTopBar trailing={<HeaderActionButton icon="bell" onPress={() => undefined} />} />
 
             <View className="pb-4">
-              <Text
-                style={{
-                  color: solarTheme.colors.text,
-                  fontSize: 34,
-                  fontWeight: '800',
-                  letterSpacing: -0.8,
-                }}
-              >
+              <Text className="text-text text-[34px] font-extrabold tracking-tight">
                 Leads Directory
               </Text>
-              <Text
-                style={{
-                  color: solarTheme.colors.textMuted,
-                  fontSize: 14,
-                  marginTop: 6,
-                  marginBottom: 16,
-                }}
-              >
+              <Text className="text-textMuted text-sm mt-1.5 mb-4">
                 {leads.length} total opportunities
               </Text>
 
@@ -342,11 +235,8 @@ export default function LeadsScreen() {
 
       <TouchableOpacity
         onPress={() => setShowModal(true)}
-        className="absolute w-14 h-14 rounded-full items-center justify-center"
+        className="absolute w-14 h-14 rounded-full items-center justify-center bg-primaryStrong right-6 bottom-[112px]"
         style={{
-          right: 24,
-          bottom: 112,
-          backgroundColor: solarTheme.colors.primaryStrong,
           shadowColor: '#85471c',
           shadowOffset: { width: 0, height: 12 },
           shadowOpacity: 0.18,
@@ -359,11 +249,10 @@ export default function LeadsScreen() {
 
       <Modal visible={showModal} animationType="slide" presentationStyle="pageSheet">
         <KeyboardAvoidingView
-          className="flex-1"
-          style={{ backgroundColor: solarTheme.colors.background }}
+          className="flex-1 bg-background"
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-          <SafeAreaView className="flex-1" style={{ backgroundColor: solarTheme.colors.background }}>
+          <SafeAreaView className="flex-1 bg-background">
             <ScreenHeader
               title="New Lead"
               subtitle="Capture the full lead details up front."

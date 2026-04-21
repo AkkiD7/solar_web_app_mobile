@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -6,11 +6,13 @@ import {
   Platform,
   ScrollView,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
 import { router } from 'expo-router';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { authApi } from '../../features/auth/authApi';
 import { useAuthStore } from '../../features/auth/authStore';
 import { Button } from '../../shared/ui/Button';
@@ -20,22 +22,20 @@ import { SolarBackdrop } from '../../shared/ui/SolarBackdrop';
 import { SolarBrand } from '../../shared/ui/SolarBrand';
 import { solarTheme } from '../../shared/theme';
 
-const schema = yup.object({
-  email: yup.string().email('Valid email required').required('Email is required'),
-  password: yup.string().min(6, 'Min 6 characters').required('Password is required'),
-});
-
 type FormData = { email: string; password: string };
 
 function LanguagePill({
   label,
   active = false,
+  onPress,
 }: {
   label: string;
   active?: boolean;
+  onPress: () => void;
 }) {
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       className="px-4 py-2 rounded-full"
       style={{
         backgroundColor: active ? solarTheme.colors.surface : 'transparent',
@@ -52,12 +52,19 @@ function LanguagePill({
       >
         {label}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 export default function LoginScreen() {
   const { setAuth } = useAuthStore();
+  const [showPassword, setShowPassword] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  const schema = useMemo(() => yup.object({
+    email: yup.string().email(t('login.validEmail')).required(t('login.emailRequired')),
+    password: yup.string().min(6, t('login.passwordMin')).required(t('login.passwordRequired')),
+  }), [t]);
 
   const {
     control,
@@ -115,7 +122,7 @@ export default function LoginScreen() {
           name="email"
           render={({ field: { onChange, onBlur, value } }) => (
             <InputField
-              label="Work Email"
+              label={t('login.workEmail')}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -134,14 +141,19 @@ export default function LoginScreen() {
           name="password"
           render={({ field: { onChange, onBlur, value } }) => (
             <InputField
-              label="Password"
+              label={t('login.password')}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
               placeholder="********"
-              secureTextEntry
+              secureTextEntry={!showPassword}
               error={errors.password?.message}
               leftIcon={<Feather name="lock" size={18} color={solarTheme.colors.textSoft} />}
+              rightAccessory={
+                <TouchableOpacity onPress={() => setShowPassword(!showPassword)} className="p-1">
+                  <Feather name={showPassword ? 'eye' : 'eye-off'} size={18} color={solarTheme.colors.textSoft} />
+                </TouchableOpacity>
+              }
             />
           )}
         />
@@ -155,11 +167,11 @@ export default function LoginScreen() {
             marginBottom: 20,
           }}
         >
-          Forgot?
+          {t('login.forgot')}
         </Text>
 
         <Button
-          title="Access Console"
+          title={t('login.accessConsole')}
           loading={isSubmitting}
           onPress={handleSubmit(onSubmit as any)}
           icon={
@@ -181,9 +193,9 @@ export default function LoginScreen() {
               borderColor: solarTheme.colors.border,
             }}
           >
-            <LanguagePill label="EN" active />
-            <LanguagePill label="हिंदी" />
-            <LanguagePill label="मराठी" />
+            <LanguagePill label="EN" active={i18n.language === 'en'} onPress={() => i18n.changeLanguage('en')} />
+            <LanguagePill label="हिंदी" active={i18n.language === 'hi'} onPress={() => i18n.changeLanguage('hi')} />
+            <LanguagePill label="मराठी" active={i18n.language === 'mr'} onPress={() => i18n.changeLanguage('mr')} />
           </View>
 
           <Text
@@ -196,7 +208,7 @@ export default function LoginScreen() {
               marginTop: 18,
             }}
           >
-            Secure enterprise authentication
+            {t('login.secureAuth')}
           </Text>
         </View>
       </ScrollView>

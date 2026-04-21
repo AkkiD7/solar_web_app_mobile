@@ -18,9 +18,9 @@ function SaveButton({ loading }: { loading: boolean }) {
     <button
       type="submit"
       disabled={loading}
-      className="flex items-center gap-2 px-5 py-2.5 bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white text-sm font-semibold rounded-xl transition-all shadow-sm shadow-orange-500/25"
+      className="flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-strong disabled:opacity-60 text-white text-[15px] font-bold rounded-full transition-all shadow-floating"
     >
-      {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
+      {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Check className="w-5 h-5" />}
       {loading ? 'Saving…' : 'Save Changes'}
     </button>
   );
@@ -123,19 +123,19 @@ function BrandingTab() {
     <div className="space-y-8">
       {/* Logo Upload */}
       <div>
-        <h3 className="text-sm font-semibold text-slate-700 mb-3">Company Logo</h3>
+        <h3 className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1 mb-3">Company Logo</h3>
         <div
-          className="border-2 border-dashed border-slate-200 rounded-2xl p-8 flex flex-col items-center gap-4 cursor-pointer hover:border-orange-400 hover:bg-orange-50/40 transition-all"
+          className="border-2 border-dashed border-border rounded-[24px] p-8 flex flex-col items-center gap-4 cursor-pointer hover:border-primary hover:bg-primary-soft transition-all"
           onClick={() => logoRef.current?.click()}
         >
           {logoPreview ? (
             <img src={logoPreview} alt="Logo preview" className="h-20 object-contain" />
           ) : (
             <>
-              <div className="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center">
-                {loading ? <Loader2 className="w-6 h-6 text-orange-500 animate-spin" /> : <Upload className="w-6 h-6 text-orange-500" />}
+              <div className="w-14 h-14 bg-primary-soft rounded-[16px] flex items-center justify-center">
+                {loading ? <Loader2 className="w-6 h-6 text-primary-strong animate-spin" /> : <Upload className="w-6 h-6 text-primary-strong" />}
               </div>
-              <p className="text-sm text-slate-500">Click to upload logo <span className="text-slate-400">(PNG, JPG, max 5MB)</span></p>
+              <p className="text-[15px] text-textSoft font-medium">Click to upload logo <span className="text-textMuted">(PNG, JPG, max 5MB)</span></p>
             </>
           )}
         </div>
@@ -144,19 +144,19 @@ function BrandingTab() {
 
       {/* Signature Upload */}
       <div>
-        <h3 className="text-sm font-semibold text-slate-700 mb-3">Authorised Signature <span className="text-slate-400 font-normal">(appears in PDF footer)</span></h3>
+        <h3 className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1 mb-3">Authorised Signature <span className="text-textSoft font-medium normal-case tracking-normal">(appears in PDF footer)</span></h3>
         <div
-          className="border-2 border-dashed border-slate-200 rounded-2xl p-6 flex flex-col items-center gap-3 cursor-pointer hover:border-orange-400 hover:bg-orange-50/40 transition-all"
+          className="border-2 border-dashed border-border rounded-[24px] p-6 flex flex-col items-center gap-3 cursor-pointer hover:border-primary hover:bg-primary-soft transition-all"
           onClick={() => sigRef.current?.click()}
         >
           {sigPreview ? (
             <img src={sigPreview} alt="Signature preview" className="h-14 object-contain" />
           ) : (
             <>
-              <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center">
-                {sigLoading ? <Loader2 className="w-5 h-5 text-slate-400 animate-spin" /> : <Upload className="w-5 h-5 text-slate-400" />}
+              <div className="w-12 h-12 bg-surfaceMuted rounded-[14px] flex items-center justify-center">
+                {sigLoading ? <Loader2 className="w-5 h-5 text-textMuted animate-spin" /> : <Upload className="w-5 h-5 text-textMuted" />}
               </div>
-              <p className="text-sm text-slate-500">Upload signature image</p>
+              <p className="text-[15px] text-textSoft font-medium">Upload signature image</p>
             </>
           )}
         </div>
@@ -235,13 +235,13 @@ function PreferencesTab() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-2 gap-5">
-        <div>
-          <label htmlFor="currency" className="block text-sm font-medium text-slate-700 mb-1.5">Currency</label>
+        <div className="space-y-2">
+          <label htmlFor="currency" className="block text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Currency</label>
           <select
             id="currency"
             value={form.currency}
             onChange={e => setForm(f => ({ ...f, currency: e.target.value }))}
-            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="flex h-[52px] w-full items-center justify-between rounded-md border border-border bg-input px-4 py-2 text-[15px] text-text focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-150"
           >
             <option value="INR">₹ INR — Indian Rupee</option>
             <option value="USD">$ USD — US Dollar</option>
@@ -249,13 +249,13 @@ function PreferencesTab() {
             <option value="GBP">£ GBP — British Pound</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="dateFormat" className="block text-sm font-medium text-slate-700 mb-1.5">Date Format</label>
+        <div className="space-y-2">
+          <label htmlFor="dateFormat" className="block text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Date Format</label>
           <select
             id="dateFormat"
             value={form.dateFormat}
             onChange={e => setForm(f => ({ ...f, dateFormat: e.target.value }))}
-            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
+            className="flex h-[52px] w-full items-center justify-between rounded-md border border-border bg-input px-4 py-2 text-[15px] text-text focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-150"
           >
             <option value="DD/MM/YYYY">DD/MM/YYYY</option>
             <option value="MM/DD/YYYY">MM/DD/YYYY</option>
@@ -275,15 +275,15 @@ function Field({ label, id, value, onChange, placeholder }: {
   label: string; id: string; value: string; onChange: (v: string) => void; placeholder?: string;
 }) {
   return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-slate-700 mb-1.5">{label}</label>
+    <div className="space-y-2">
+      <label htmlFor={id} className="block text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">{label}</label>
       <input
         id={id}
         type="text"
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+        className="flex h-[52px] w-full rounded-md border border-border bg-input px-4 py-2 text-[15px] text-text ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-textSoft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-150"
       />
     </div>
   );
@@ -293,8 +293,8 @@ function NumberField({ label, id, value, onChange, placeholder }: {
   label: string; id: string; value: string; onChange: (v: string) => void; placeholder?: string;
 }) {
   return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-slate-700 mb-1.5">{label}</label>
+    <div className="space-y-2">
+      <label htmlFor={id} className="block text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">{label}</label>
       <input
         id={id}
         type="number"
@@ -302,7 +302,7 @@ function NumberField({ label, id, value, onChange, placeholder }: {
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-800 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+        className="flex h-[52px] w-full rounded-md border border-border bg-input px-4 py-2 text-[15px] text-text ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-textSoft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-transparent disabled:cursor-not-allowed disabled:opacity-50 transition-colors duration-150"
       />
     </div>
   );
@@ -314,34 +314,34 @@ export default function SettingsPage() {
   const user = useAuthStore(s => s.user);
 
   return (
-    <div>
+    <div className="animate-fade-in max-w-6xl mx-auto">
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
-        <p className="text-slate-500 text-sm mt-1">Manage your company profile, branding, and preferences</p>
+        <h1 className="text-3xl font-black text-text tracking-tight">Settings</h1>
+        <p className="text-textSoft font-medium mt-1">Manage your company profile, branding, and preferences</p>
       </div>
 
-      <div className="flex gap-6">
+      <div className="flex flex-col md:flex-row gap-8">
         {/* Sidebar tabs */}
-        <nav className="w-52 shrink-0 space-y-1">
+        <nav className="w-full md:w-64 shrink-0 space-y-1.5">
           {tabs.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-left ${
+              className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-[16px] text-[15px] font-bold transition-all text-left ${
                 activeTab === id
-                  ? 'bg-orange-500 text-white shadow-sm shadow-orange-500/25'
-                  : 'text-slate-600 hover:bg-slate-100'
+                  ? 'bg-primary-soft text-primary-strong shadow-sm'
+                  : 'text-textMuted hover:bg-surfaceMuted hover:text-text'
               }`}
             >
-              <Icon className="w-4 h-4 shrink-0" />
+              <Icon className="w-5 h-5 shrink-0" strokeWidth={2.5} />
               {label}
             </button>
           ))}
         </nav>
 
         {/* Tab content */}
-        <div className="flex-1 bg-white rounded-2xl border border-slate-100 shadow-sm p-8">
+        <div className="flex-1 bg-surface rounded-[24px] border border-border shadow-floating p-8">
           {/* Plan notice */}
           {user?.plan === 'FREE' && (
             <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800 flex gap-3 items-start">

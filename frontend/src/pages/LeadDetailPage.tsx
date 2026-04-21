@@ -5,7 +5,7 @@ import { Button } from '../shared/ui/button';
 import { Skeleton } from '../shared/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../shared/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../shared/ui/select';
-import LeadStatusBadge from '../features/leads/components/LeadStatusBadge';
+import { StatusPill, type StatusTone } from '../shared/ui/StatusPill';
 import QuoteList from '../features/quotations/components/QuoteList';
 import QuoteForm from '../features/quotations/components/QuoteForm';
 import { useLead } from '../features/leads/hooks/useLeads';
@@ -28,6 +28,17 @@ export default function LeadDetailPage() {
 
   const handleStatusChange = (status: string) => {
     updateLead({ status: status as LeadStatus });
+  };
+
+  const getStatusTone = (status: string): StatusTone => {
+    switch (status) {
+      case 'NEW': return 'info';
+      case 'CONTACTED': return 'warning';
+      case 'QUOTED': return 'primary' as StatusTone;
+      case 'WON': return 'success';
+      case 'LOST': return 'danger';
+      default: return 'neutral';
+    }
   };
 
   const handleCreateQuote = (data: CreateQuoteRequest) => {
@@ -60,15 +71,15 @@ export default function LeadDetailPage() {
   }
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6 max-w-4xl animate-fade-in">
       {/* Header */}
       <div className="flex items-center gap-4">
         <Button variant="ghost" size="icon" onClick={() => navigate('/leads')}>
           <ArrowLeft className="w-5 h-5" />
         </Button>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">{lead.name}</h1>
-          <p className="text-slate-500 text-sm">Added {formatDate(lead.createdAt)}</p>
+          <h1 className="text-3xl font-black text-text tracking-tight">{lead.name}</h1>
+          <p className="text-textMuted font-medium text-sm mt-1">Added {formatDate(lead.createdAt)}</p>
         </div>
         <div className="ml-auto flex items-center gap-3">
           <Select value={lead.status} onValueChange={handleStatusChange}>
@@ -81,15 +92,15 @@ export default function LeadDetailPage() {
               ))}
             </SelectContent>
           </Select>
-          <LeadStatusBadge status={lead.status} />
+          <StatusPill label={lead.status} tone={getStatusTone(lead.status)} />
         </div>
       </div>
 
       {/* Lead Info Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         {/* Contact Info */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
-          <h2 className="font-semibold text-slate-800">Contact Details</h2>
+        <div className="bg-surface rounded-[24px] border border-border shadow-floating p-6 space-y-4">
+          <h2 className="font-black text-[20px] text-text">Contact Details</h2>
           <div className="space-y-3">
             <div className="flex items-center gap-3 text-sm">
               <div className="p-2 bg-blue-50 rounded-lg">
@@ -126,10 +137,10 @@ export default function LeadDetailPage() {
         </div>
 
         {/* Notes */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6">
+        <div className="bg-surface rounded-[24px] border border-border shadow-floating p-6">
           <div className="flex items-center gap-2 mb-3">
-            <FileText className="w-4 h-4 text-slate-400" />
-            <h2 className="font-semibold text-slate-800">Notes</h2>
+            <FileText className="w-5 h-5 text-textSoft" />
+            <h2 className="font-black text-[20px] text-text">Notes</h2>
           </div>
           {lead.notes ? (
             <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-wrap">{lead.notes}</p>
@@ -140,11 +151,11 @@ export default function LeadDetailPage() {
       </div>
 
       {/* Quotations Section */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6">
+      <div className="bg-surface rounded-[24px] border border-border shadow-floating p-6">
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h2 className="font-semibold text-slate-800">Quotations</h2>
-            <p className="text-xs text-slate-400 mt-0.5">{quotes.length} quote{quotes.length !== 1 ? 's' : ''} created</p>
+            <h2 className="font-black text-[20px] text-text">Quotations</h2>
+            <p className="text-sm font-medium text-textMuted mt-1">{quotes.length} quote{quotes.length !== 1 ? 's' : ''} created</p>
           </div>
           <Button
             size="sm"

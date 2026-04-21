@@ -56,27 +56,27 @@ export default function LeadForm({
   const status = watch('status');
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-1.5">
-          <Label htmlFor="lead-name">Customer Name *</Label>
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <div className="grid grid-cols-2 gap-5">
+        <div className="space-y-2">
+          <Label htmlFor="lead-name" className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Customer Name *</Label>
           <Input id="lead-name" placeholder="Ramesh Kumar" {...register('name')} />
-          {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+          {errors.name && <p className="text-xs text-danger font-medium mt-1 ml-1">{errors.name.message}</p>}
         </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="lead-phone">Phone Number *</Label>
+        <div className="space-y-2">
+          <Label htmlFor="lead-phone" className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Phone Number *</Label>
           <Input id="lead-phone" placeholder="9876543210" maxLength={10} {...register('phone')} />
-          {errors.phone && <p className="text-xs text-red-500">{errors.phone.message}</p>}
+          {errors.phone && <p className="text-xs text-danger font-medium mt-1 ml-1">{errors.phone.message}</p>}
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-1.5">
-          <Label htmlFor="lead-location">Location</Label>
+      <div className="grid grid-cols-2 gap-5">
+        <div className="space-y-2">
+          <Label htmlFor="lead-location" className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Location</Label>
           <Input id="lead-location" placeholder="Mumbai, Maharashtra" {...register('location')} />
         </div>
-        <div className="space-y-1.5">
-          <Label>Status</Label>
+        <div className="space-y-2">
+          <Label className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Status</Label>
           <Select
             value={status}
             onValueChange={(value) => setValue('status', value as LeadStatus)}
@@ -95,13 +95,13 @@ export default function LeadForm({
         </div>
       </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="lead-followup">Follow-up Date</Label>
+      <div className="space-y-2">
+        <Label htmlFor="lead-followup" className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Follow-up Date</Label>
         <Input id="lead-followup" type="date" {...register('followUpDate')} />
       </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="lead-notes">Notes</Label>
+      <div className="space-y-2">
+        <Label htmlFor="lead-notes" className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Notes</Label>
         <Textarea
           id="lead-notes"
           placeholder="Interested in 5kW system, has south-facing roof..."
@@ -110,7 +110,7 @@ export default function LeadForm({
         />
       </div>
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
+      <Button type="submit" className="w-full mt-4" disabled={isLoading}>
         {isLoading ? 'Saving...' : submitLabel}
       </Button>
     </form>

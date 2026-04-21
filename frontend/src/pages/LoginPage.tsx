@@ -35,34 +35,35 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
-        <p className="text-slate-500 text-sm mt-1">Sign in to your Solar Contractor account</p>
+        <h1 className="text-3xl font-black text-text tracking-tight">Welcome back</h1>
+        <p className="text-textSoft font-medium mt-2">Sign in to your Solar Contractor account</p>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="space-y-1.5">
-          <Label htmlFor="login-email">Email</Label>
-          <Input id="login-email" type="email" placeholder="you@example.com" {...register('email')} />
-          {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+        <div className="space-y-2">
+          <Label htmlFor="login-email" className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Email</Label>
+          <Input id="login-email" type="email" placeholder="you@company.com" {...register('email')} />
+          {errors.email && <p className="text-xs text-danger font-medium mt-1 ml-1">{errors.email.message}</p>}
         </div>
 
-        <div className="space-y-1.5">
-          <Label htmlFor="login-password">Password</Label>
+        <div className="space-y-2">
+          <Label htmlFor="login-password" className="text-[11px] font-bold uppercase tracking-[1.1px] text-textMuted ml-1">Password</Label>
           <Input id="login-password" type="password" placeholder="••••••••" {...register('password')} />
-          {errors.password && <p className="text-xs text-red-500">{errors.password.message}</p>}
+          {errors.password && <p className="text-xs text-danger font-medium mt-1 ml-1">{errors.password.message}</p>}
         </div>
 
-        <Button type="submit" className="w-full h-11" disabled={isSubmitting}>
+        <Button type="submit" className="w-full mt-2" disabled={isSubmitting}>
           {isSubmitting ? 'Signing in...' : 'Sign In'}
         </Button>
       </form>
 
-      <p className="text-center text-sm text-slate-500">
-        Access is by invite only.{' '}
-        <span className="text-slate-400">Contact your administrator.</span>
-      </p>
+      <div className="pt-6 mt-6 border-t border-border/60 text-center">
+        <p className="text-xs font-bold tracking-widest text-textSoft uppercase">
+          Secure Access Only
+        </p>
+      </div>
     </div>
   );
 }

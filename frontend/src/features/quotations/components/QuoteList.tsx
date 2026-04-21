@@ -40,7 +40,7 @@ export default function QuoteList({ quotes, isLoading, isError }: QuoteListProps
     return (
       <div className="text-center py-10">
         <div className="text-3xl mb-2">📋</div>
-        <p className="text-slate-500 text-sm">No quotes yet — create one above</p>
+        <p className="text-textSoft font-bold text-sm">No quotes yet — create one above</p>
       </div>
     );
   }
@@ -50,14 +50,14 @@ export default function QuoteList({ quotes, isLoading, isError }: QuoteListProps
       {quotes.map((quote, index) => (
         <div
           key={quote._id}
-          className="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200 hover:border-orange-200 hover:shadow-sm transition-all"
+          className="flex items-center justify-between p-4 bg-surfaceMuted/30 rounded-[16px] border border-border hover:border-primary-soft hover:shadow-floating transition-all"
         >
           <div>
-            <p className="font-semibold text-slate-800 text-sm">
+            <p className="font-bold text-text text-sm">
               Quote #{quotes.length - index} — {quote.systemSizeKW} kW
             </p>
-            <p className="text-xs text-slate-400 mt-0.5">{formatDate(quote.createdAt)}</p>
-            <div className="flex gap-3 mt-1 text-xs text-slate-500">
+            <p className="text-xs font-medium text-textMuted mt-0.5">{formatDate(quote.createdAt)}</p>
+            <div className="flex gap-3 mt-1.5 text-xs font-medium text-textSoft">
               <span>Panels: {formatCurrency(quote.panelCost)}</span>
               <span>•</span>
               <span>Inverter: {formatCurrency(quote.inverterCost)}</span>
@@ -65,24 +65,24 @@ export default function QuoteList({ quotes, isLoading, isError }: QuoteListProps
               <span>Install: {formatCurrency(quote.installationCost)}</span>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="text-right">
-              <p className="text-xs text-slate-400">Total</p>
-              <p className="font-bold text-orange-600 text-base">{formatCurrency(quote.totalCost)}</p>
+          <div className="flex items-center gap-4">
+            <div className="text-right hidden sm:block">
+              <p className="text-[10px] font-bold tracking-widest uppercase text-textSoft mb-0.5">Total</p>
+              <p className="font-black text-text text-base leading-none">{formatCurrency(quote.totalCost)}</p>
             </div>
             <Button
               variant="outline"
               size="sm"
               onClick={() => handleDownload(quote._id)}
               disabled={downloadingId === quote._id}
-              className="border-orange-200 text-orange-600 hover:bg-orange-50"
+              className="border-primary-soft text-primary-strong hover:bg-primary-soft h-10 px-3"
             >
               {downloadingId === quote._id ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
                 <Download className="w-4 h-4" />
               )}
-              <span className="ml-1.5">PDF</span>
+              <span className="ml-1.5 font-bold">PDF</span>
             </Button>
           </div>
         </div>
