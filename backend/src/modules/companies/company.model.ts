@@ -3,6 +3,12 @@ import mongoose, { Document, Schema } from 'mongoose';
 export type CompanyPlan = 'FREE' | 'STARTER' | 'PRO';
 export type CompanyStatus = 'ACTIVE' | 'SUSPENDED';
 
+export interface CompanyCustomLimits {
+  maxLeads?: number;
+  maxQuotes?: number;
+  maxUsers?: number;
+}
+
 export interface ICompany extends Document {
   name: string;
   email: string;
@@ -13,6 +19,8 @@ export interface ICompany extends Document {
   website?: string;
   plan: CompanyPlan;
   status: CompanyStatus;
+  customLimits?: CompanyCustomLimits;
+  deletedAt: Date | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -42,6 +50,12 @@ const companySchema = new Schema<ICompany>(
       enum: ['ACTIVE', 'SUSPENDED'] as CompanyStatus[],
       default: 'ACTIVE' as CompanyStatus,
     },
+    customLimits: {
+      maxLeads: { type: Number },
+      maxQuotes: { type: Number },
+      maxUsers: { type: Number },
+    },
+    deletedAt: { type: Date, default: null, index: true },
   },
   { timestamps: true }
 );

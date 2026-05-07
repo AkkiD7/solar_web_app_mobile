@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-export type UserRole = 'ADMIN';
+export type UserRole = 'ADMIN' | 'MANAGER' | 'SALES_REP' | 'VIEWER';
 
 export interface IUser extends Document {
   companyId: mongoose.Types.ObjectId;
@@ -9,6 +9,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: UserRole;
+  isActive: boolean;
   comparePassword(candidate: string): Promise<boolean>;
 }
 
@@ -31,9 +32,10 @@ const userSchema = new Schema<IUser>(
     password: { type: String, required: true, minlength: 6 },
     role: {
       type: String,
-      enum: ['ADMIN'] as UserRole[],
+      enum: ['ADMIN', 'MANAGER', 'SALES_REP', 'VIEWER'] as UserRole[],
       default: 'ADMIN' as UserRole,
     },
+    isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );

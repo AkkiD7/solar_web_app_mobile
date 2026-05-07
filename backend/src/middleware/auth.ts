@@ -7,7 +7,7 @@ interface CompanyJwtPayload {
   id: string;
   email: string;
   companyId: string;
-  role: 'ADMIN';
+  role: 'ADMIN' | 'MANAGER' | 'SALES_REP' | 'VIEWER';
 }
 
 interface SuperAdminJwtPayload {

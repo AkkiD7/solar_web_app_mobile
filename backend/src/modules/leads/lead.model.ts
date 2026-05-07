@@ -14,6 +14,8 @@ export interface ILead extends Document {
   deletedAt: Date | null;
   createdBy: mongoose.Types.ObjectId;
   updatedBy: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const leadSchema = new Schema<ILead>(

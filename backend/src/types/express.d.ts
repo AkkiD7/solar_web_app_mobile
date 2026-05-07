@@ -6,7 +6,7 @@ declare global {
         id: string;
         email: string;
         companyId: string;
-        role: 'ADMIN';
+        role: 'ADMIN' | 'MANAGER' | 'SALES_REP' | 'VIEWER';
       };
       superAdmin?: {
         id: string;

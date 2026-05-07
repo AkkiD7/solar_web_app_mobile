@@ -1,12 +1,21 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+const parseCsv = (value?: string): string[] =>
+  value
+    ? value
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean)
+    : [];
+
 export const env = {
   port: parseInt(process.env.PORT || '3001', 10),
   mongoUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/solar-contractor-db',
   jwtSecret: process.env.JWT_SECRET || 'solar_fallback_secret',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
   nodeEnv: process.env.NODE_ENV || 'development',
+  corsOrigins: parseCsv(process.env.CORS_ORIGINS),
 
   // Super Admin
   superAdminEmail: process.env.SUPER_ADMIN_EMAIL || '',

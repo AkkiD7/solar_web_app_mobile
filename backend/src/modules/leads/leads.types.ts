@@ -1,6 +1,4 @@
-// IMPORTANT CONSTRAINT: Single-user application
-// Every query is scoped to the logged-in userId.
-// No multi-tenant, no roles, no company system.
+// Multi-tenant: every query is scoped to companyId for data isolation.
 
 export enum LeadStatus {
   NEW = 'NEW',

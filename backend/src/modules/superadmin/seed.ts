@@ -1,7 +1,3 @@
-/**
- * Seed script — runs once on server start to create super admin if none exists.
- * Reads credentials from env vars: SUPER_ADMIN_EMAIL, SUPER_ADMIN_PASSWORD
- */
 import { PlatformAdmin } from './platform-admin.model';
 import { env } from '../../config/env';
 

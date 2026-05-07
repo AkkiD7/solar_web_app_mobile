@@ -8,6 +8,7 @@ import companiesRoutes from './modules/companies/companies.routes';
 import superAdminRoutes from './modules/superadmin/superadmin.routes';
 import { errorHandler } from './middleware/errorHandler';
 import { requestLogger } from './middleware/requestLogger';
+import { env } from './config/env';
 
 const app = express();
 
@@ -15,8 +16,20 @@ app.use(requestLogger);
 
 // CORS — allow all for testing
 app.use(cors({
-  origin: true,
-  credentials: true
+  origin: (origin, callback) => {
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+
+    if (env.corsOrigins.length === 0 && env.nodeEnv !== 'production') {
+      callback(null, true);
+      return;
+    }
+
+    callback(null, env.corsOrigins.includes(origin));
+  },
+  credentials: true,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

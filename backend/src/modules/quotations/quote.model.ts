@@ -15,6 +15,8 @@ export interface IQuote extends Document {
   deletedAt: Date | null;
   createdBy: mongoose.Types.ObjectId;
   updatedBy: mongoose.Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const quoteSchema = new Schema<IQuote>(
