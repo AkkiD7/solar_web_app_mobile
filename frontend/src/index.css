@@ -3,67 +3,97 @@
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
-  --background: oklch(0.985 0.003 247.858);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.546 0.245 262.881);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.546 0.245 262.881);
-  --sidebar: oklch(0.129 0.042 264.695);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.546 0.245 262.881);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.208 0.042 265.755);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(0.279 0.041 260.031);
+:root, .dark {
+  /* Solar Super Admin - Mission Control Theme */
+  --background: #0a0a0f;
+  --foreground: #e8e8f0;
+  --card: #16161f;
+  --card-foreground: #e8e8f0;
+  --popover: #1e1e2a;
+  --popover-foreground: #e8e8f0;
+  --primary: #6366f1;
+  --primary-foreground: #ffffff;
+  --secondary: #1f1f27;
+  --secondary-foreground: #e8e8f0;
+  --muted: #1f1f27;
+  --muted-foreground: #a0a0b8;
+  --accent: #1f1f27;
+  --accent-foreground: #e8e8f0;
+  --destructive: #f43f5e;
+  --destructive-foreground: #ffffff;
+  --border: #2a2a3e;
+  --input: #2a2a3e;
+  --ring: #6366f1;
+  
+  /* Sidebar specifically */
+  --sidebar: #111118;
+  --sidebar-foreground: #e8e8f0;
+  --sidebar-primary: #6366f1;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1f1f27;
+  --sidebar-accent-foreground: #e8e8f0;
+  --sidebar-border: #2a2a3e;
+  
   --radius: 0.5rem;
-}
-
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.623 0.214 259.815);
-  --primary-foreground: oklch(0.129 0.042 264.695);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.16 0.042 264.695);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.623 0.214 259.815);
-  --sidebar-primary-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
 }
 
 @theme inline {
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  
+  /* Typography */
+  --font-page-title: 'Inter';
+  --text-page-title: 28px;
+  --text-page-title--line-height: 1.2;
+  --text-page-title--letter-spacing: -0.03em;
+  --text-page-title--font-weight: 700;
+  
+  --font-section-header: 'Inter';
+  --text-section-header: 20px;
+  --text-section-header--line-height: 1.3;
+  --text-section-header--letter-spacing: -0.02em;
+  --text-section-header--font-weight: 600;
+
+  --font-body: 'Inter';
+  --text-body: 14px;
+  --text-body--line-height: 1.5;
+  --text-body--font-weight: 400;
+
+  --font-label-caps: 'Inter';
+  --text-label-caps: 11px;
+  --text-label-caps--line-height: 1;
+  --text-label-caps--letter-spacing: 0.06em;
+  --text-label-caps--font-weight: 500;
+
+  --font-stat-hero: 'Inter';
+  --text-stat-hero: 32px;
+  --text-stat-hero--line-height: 1;
+  --text-stat-hero--letter-spacing: -0.02em;
+  --text-stat-hero--font-weight: 800;
+
+  /* Spacing */
+  --spacing-card-padding: 24px;
+  --spacing-grid-gap: 16px;
+  --spacing-element-spacing: 12px;
+
+  /* Extended Colors */
+  --color-surface-dim: #13131b;
+  --color-surface-bright: #393841;
+  --color-surface-container-lowest: #0d0d15;
+  --color-surface-container-low: #1b1b23;
+  --color-surface-container: #1f1f27;
+  --color-surface-container-high: #292932;
+  --color-surface-container-highest: #34343d;
+  --color-surface-high: #1e1e2a;
+  --color-on-surface: #e4e1ed;
+  --color-on-surface-variant: #c7c4d7;
+  --color-outline: #908fa0;
+  --color-outline-variant: #464554;
+  --color-text-primary: #e8e8f0;
+  --color-text-secondary: #a0a0b8;
+  --color-info: #0ea5e9;
+  --color-tertiary: #f59e0b;
+  
+  /* Core Shadcn mappings */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -141,4 +171,16 @@ body {
 }
 .animate-zoom-in {
   animation: zoom-in 0.2s ease-out;
+}
+
+/* Stitch Theme Utility Classes */
+.bg-glow {
+  background: radial-gradient(circle at center, rgba(128, 131, 255, 0.08) 0%, rgba(10, 10, 15, 0) 70%);
+}
+.zebra-table tr:nth-child(even) {
+  background-color: rgba(27, 27, 35, 0.4);
+}
+.glass-blur {
+  backdrop-filter: blur(12px);
+  background: rgba(19, 19, 27, 0.8);
 }

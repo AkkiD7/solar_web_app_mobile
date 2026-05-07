@@ -82,7 +82,7 @@ function SidebarProvider({
             ...style,
           } as CSSProperties
         }
-        className={cn('group/sidebar-wrapper flex min-h-svh w-full bg-background text-foreground', className)}
+        className={cn('group/sidebar-wrapper flex h-svh w-full overflow-hidden bg-background text-foreground', className)}
         {...props}
       >
         {children}
@@ -110,7 +110,7 @@ function Sidebar({ className, children, ...props }: React.ComponentProps<'div'>)
         data-slot="sidebar-desktop"
         data-state={open ? 'expanded' : 'collapsed'}
         className={cn(
-          'hidden h-svh shrink-0 border-r border-sidebar-border transition-[width] duration-200 md:block',
+          'hidden h-svh shrink-0 overflow-hidden border-r border-sidebar-border transition-[width] duration-200 md:block',
           open ? 'w-[var(--sidebar-width)]' : 'w-[var(--sidebar-width-icon)]'
         )}
       >
@@ -126,7 +126,7 @@ function Sidebar({ className, children, ...props }: React.ComponentProps<'div'>)
 }
 
 function SidebarInset({ className, ...props }: React.ComponentProps<'main'>) {
-  return <main data-slot="sidebar-inset" className={cn('flex min-w-0 flex-1 flex-col', className)} {...props} />;
+  return <main data-slot="sidebar-inset" className={cn('flex h-svh min-w-0 flex-1 flex-col overflow-y-auto', className)} {...props} />;
 }
 
 function SidebarTrigger({ className, ...props }: React.ComponentProps<typeof Button>) {
